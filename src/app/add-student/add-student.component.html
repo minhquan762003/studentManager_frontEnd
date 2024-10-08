@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="card text-center mt-5">
+        <div class="card-header">
+            <a href="/all" class="btn btn-outline-primary float-start">Quay lại</a>
+            Thêm thông tin sinh viên
+        </div>
+        <div class="card-body">
+            <form #studentsForm="ngForm" (ngSubmit)="onStudentCreate(studentsForm.value)" novalidate>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="name" id="formId1" placeholder="" ngModel required
+                        minlength="5" ngModel />
+                    <label for="formId1">Họ và tên</label>
+                    <div *ngIf="studentsForm.submitted || studentsForm.controls['name']?.touched">
+                        <div *ngIf="studentsForm.controls['name']?.errors?.['required']" class="text-danger">
+                            Họ và tên là bắt buộc
+                        </div>
+                    </div>
+
+                    <div *ngIf="studentsForm.controls['name']?.errors?.['minlength']" class="text-danger">
+                        Tối thiểu 5 ký tự
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <select class="form-select form-select-sm" name="address" id="" ngModel required>
+                        <option selected disabled>Địa chỉ</option>
+                        <option value="Hà Nội">Hà Nội</option>
+                        <option value="Hải Phòng">Hải Phòng</option>
+                        <option value="Nam Định">Nam Định</option>
+                    </select>
+
+                    <div *ngIf="studentsForm.submitted || studentsForm.controls['address']?.touched">
+                        <div *ngIf="studentsForm.controls['address']?.errors?.['required']" class="text-danger">
+                            Địa chỉ là bắt buộc
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="className" id="formId1" placeholder="" ngModel />
+                    <label for="formId1">Lớp</label>
+                </div>
+
+
+
+                <div class="mb-3">
+                    <input type="date" name="birthDay" id="" class="form-control" ngModel required>
+                    <div *ngIf="studentsForm.submitted || studentsForm.controls['birthDay']?.touched">
+                        <div *ngIf="studentsForm.controls['birthDay']?.errors?.['required']" class="text-danger">
+                            Ngày tháng năm sinh là bắt buộc
+                        </div>
+                    </div>
+                </div>
+
+
+                <input type="submit" value="Thêm sinh viên" class="btn btn-success" [disabled]="studentsForm.invalid">
+
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+
+        </div>
+    </div>
+
+</div>
+
+
+<ng-template #backHome>
+
+    <div class="modal-header">
+        <h4 class="text-success">Thêm sinh viên thành công</h4>
+    </div>
+    <div class="modal-body">
+        Thêm thành công
+    </div>
+    <div class="modal-footer">
+        <a href="/all" class="btn btn-primary">Quay lại trang chủ</a>
+    </div>
+
+</ng-template>

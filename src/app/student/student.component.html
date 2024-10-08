@@ -1,0 +1,132 @@
+<div class="card text-center text-white bg-light mt-lg-5">
+    <div class="card-header ">
+        <h1 class="text-primary">Quản lý sinh viên</h1>
+
+    </div>
+
+    <div class="card-body">
+        <div class="container">
+            <a href="/add" routerLinkActive="active" class="btn btn-outline-primary float-end mb-2">Add Student</a>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Lớp</th>
+                        <th>Ngày sinh</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let student of students; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{student.name}}</td>
+                        <td>{{student.address}}</td>
+                        <td>{{student.className}}</td>
+                        <td>{{student.birthDay | date:'dd-MM-yyyy'}}</td>
+                        <td>
+                            <a href="" class="btn btn-outline-warning m-lg-1" (click)="getStudentById(student.id)"
+                                data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                (click)="setIdStudentToDelete(student.id)">Delete</button>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Student</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Bạn chắc chắn muốn xóa chứ ?
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button class="btn btn-warning" (click)="deleteStudent()" data-bs-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Student</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form #studentEditForm="ngForm">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="name" id="formId1" placeholder="" [(ngModel)]="editStudent.data.name" />
+                        <label for="formId1">Name</label>
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-select form-select-sm" name="address" id=""
+                            [(ngModel)]="editStudent.data.address">
+                            <option selected disabled>Địa chỉ</option>
+                            <option value="Hà Nội">Hà Nội</option>
+                            <option value="Hải Phòng">Hải Phòng</option>
+                            <option value="Nam Định">Nam Định</option>
+                        </select>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="className" id="formId1" placeholder="" [(ngModel)]="editStudent.data.className" />
+                        <label for="formId1">Name Class</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="date" name="birthDay" id="" class="form-control"
+                            [(ngModel)]="editStudent.data.birthDay">
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button class="btn btn-warning" data-bs-dismiss="modal" (click)="updateStudent(studentEditForm.value)">Save</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #editSuccess>
+
+    <div class="modal-header">
+        <h4 class="text-success">Sửa sinh viên thành công</h4>
+    </div>
+    <div class="modal-body">
+        Sửa thành công
+    </div>
+    <div class="modal-footer">
+        <a href="/all" class="btn btn-primary">Xong</a>
+    </div>
+
+</ng-template>
